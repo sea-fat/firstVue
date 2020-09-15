@@ -4,6 +4,21 @@
             <div class="avatar">
                 <img src="../assets/images/logo.png" alt="">
             </div>
+            <el-form label-width="0" class="form">
+                <!-- 用户名 -->
+                <el-form-item >
+                    <el-input></el-input>
+                </el-form-item>
+                <!-- 密码 -->
+                <el-form-item >
+                    <el-input></el-input>
+                </el-form-item>
+                <!-- 按钮 -->
+                <el-form-item >
+                    <el-button type="primary" class="l">登录</el-button>
+                    <el-button type="info" class="r">重置</el-button>
+                </el-form-item>
+            </el-form>
         </div>
     </div>
 </template>
@@ -48,5 +63,13 @@ export default {
                 background-color: #eee;
             }
         }
+    }
+    .form {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 0 20px;
+        
+        
     }
 </style>
