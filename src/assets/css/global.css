@@ -10,3 +10,17 @@ body,
     width: 100%;
     height: 100%;
 }
+
+.clearfix:after {
+    display: block;
+    visibility: hidden;
+    content: '';
+    clear: both;
+}
+
+
+/*兼容*/
+
+.clearfix {
+    *zoom: 1;
+}

@@ -4,19 +4,21 @@
             <div class="avatar">
                 <img src="../assets/images/logo.png" alt="">
             </div>
-            <el-form label-width="0" class="form">
+            <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0" class="form">
                 <!-- 用户名 -->
-                <el-form-item >
-                    <el-input></el-input>
+                <el-form-item prop="username">
+                    <el-input v-model="loginForm.username" prefix-icon="iconfont icon-user" ></el-input>
                 </el-form-item>
                 <!-- 密码 -->
-                <el-form-item >
-                    <el-input></el-input>
+                <el-form-item prop="password" >
+                    <el-input v-model="loginForm.password" prefix-icon="iconfont icon-3702mima" type="password"></el-input>
                 </el-form-item>
                 <!-- 按钮 -->
-                <el-form-item >
-                    <el-button type="primary" class="l">登录</el-button>
-                    <el-button type="info" class="r">重置</el-button>
+                <el-form-item>
+                    <div class="btn">
+                        <el-button type="primary" class="l" @click="login">登录</el-button>
+                        <el-button type="info" class="r" @click="reset">重置</el-button>
+                    </div>
                 </el-form-item>
             </el-form>
         </div>
@@ -25,7 +27,37 @@
 
 <script>
 export default {
-    
+    data(){
+        return {
+            loginForm:{
+                username:'admin',
+                password:'123456'
+            },
+            loginFormRules:{
+                username:[
+                    {required:true,message:'请输入用户名',trigger:'blur'}
+                ],
+                password:[
+                    {required:true,message:'请输入密码',trigger:'blur'}
+                ]
+            }
+        }
+    },
+    methods:{
+        reset:function(){
+            this.$refs.loginFormRef.resetFields()
+        },
+        login:function(){
+            this.$refs.loginFormRef.validate(async val=>{
+                if(!val) return;
+                const {data:res} = await this.$http.post('login',this.loginForm);
+                if(res.meta.status!=200) return this.$message.error('登录失败');
+                this.$message.success('登录成功');
+                window.sessionStorage.setItem('token',res.data.token);
+                this.$router.push('/home')
+            })
+        }
+    }
 }
 </script>
 
@@ -69,7 +101,24 @@ export default {
         bottom: 0;
         width: 100%;
         padding: 0 20px;
-        
-        
+     
+       .btn {
+           position: relative;
+           width: 100%;
+           height: 41px;
+           .l,.r {
+               position: absolute;
+               left: 50%;
+           }
+           .l {
+               transform: translateX(-150%);
+           }
+           .r{
+               transform:translateX(30%);
+           }
+       }
     }
+    .el-input__prefix {
+           left: 10px!important;
+       }
 </style>
