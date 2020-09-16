@@ -20,5 +20,16 @@ const routes = [{
 const router = new VueRouter({
     routes
 })
+router.beforeEach((to, form, next) => {
+    //to到哪去
+    //from从哪来
+    //next代表还是,放行
+    //next()直接方向,next('/login')强制到某个地址
+    if (to.path === '/login') return next();
+    const tokenStr = window.sessionStorage.getItem('token');
+    if (!tokenStr) return next('/login');
+    next();
+})
+
 
 export default router
