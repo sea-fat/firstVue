@@ -1,13 +1,13 @@
 <template>
     <div>
+        <!-- 导航 -->
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>权限管理</el-breadcrumb-item>
+            <el-breadcrumb-item>角色列表</el-breadcrumb-item>
+        </el-breadcrumb>
         <el-card class="box-card">
-            <!-- 导航 -->
-            <el-breadcrumb separator-class="el-icon-arrow-right">
-                <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-                <el-breadcrumb-item>角色列表</el-breadcrumb-item>
-            </el-breadcrumb>
-                <el-button type="primary" class="addRloe-btn" @click="addRole">添加角色</el-button>
+            <el-button type="primary" class="addRloe-btn" @click="addRole">添加角色</el-button>
             <!-- 列表 -->
             <el-table
                 :data="rolesList"
@@ -250,9 +250,7 @@ export default {
 </script>
 
 <style lang="less" scope>
-    .el-breadcrumb{
-        margin-bottom: 20px!important;
-    }
+    
     .el-table{
         margin-top: 20px!important;
     }
