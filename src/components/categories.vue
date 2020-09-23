@@ -74,9 +74,10 @@
             title="提示"
             :visible.sync="modifyDialogVisible"
             width="35%"
+            @close="resetModifyCate"
             >
             <el-form ref="modifyFormRef" :model="modifyForm" label-width="80px">
-                <el-form-item label="分类名称" >
+                <el-form-item label="分类名称"  >
                     <el-input v-model="modifyForm.cateName" disabled></el-input>
                 </el-form-item>
                 <el-form-item label="修改为" >
@@ -84,7 +85,7 @@
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="modifyDialogVisible = false">取 消</el-button>
+                <el-button @click="resetModifyCate">取 消</el-button>
                 <el-button type="primary" @click="confirmModify">确 定</el-button>
             </span>
         </el-dialog>
@@ -229,7 +230,7 @@ export default {
                 type: 'warning'
             }).catch(err=>err)
             if(str == 'cancel'){
-                return this.$message.error('取消删除');
+                return;
             }
             else if(str == 'confirm'){
                 const {data:res} = await this.$http.delete('categories/'+id);
@@ -247,10 +248,14 @@ export default {
         async confirmModify(){
             const {data:res} = await this.$http.put('categories/'+this.modifyForm.cat_id,
             {cat_name:this.modifyForm.modifyCateName});
-            if(res.meta.status !==200) return this.$message.error(res.meta.msg);
-            this.$message.success(res.meta.msg);
+            if(res.meta.status !==200) return this.$message.error('修改失败');
+            this.$message.success('修改成功');
             this.modifyDialogVisible=false;
             this.getCategoriesList(); 
+        },
+        resetModifyCate(){
+            this.modifyForm.modifyCateName = '';
+            this.modifyDialogVisible = false;
         }
         
     }

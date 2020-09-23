@@ -81,12 +81,13 @@
                 title="提示"
                 :visible.sync="modifyDialogVisible"
                 width="35%"
+                @close="resetModify"
             >
-                <el-form ref="modifyRef" :model="roleInfor" label-width="80px">
-                    <el-form-item label="角色名称">
+                <el-form ref="modifyRef" :model="roleInfor" :rules="modifyRule" label-width="80px">
+                    <el-form-item label="角色名称" prop="roleName">
                         <el-input v-model="roleInfor.roleName"></el-input>
                     </el-form-item>
-                    <el-form-item label="角色描述">
+                    <el-form-item label="角色描述" prop="roleDesc">
                         <el-input v-model="roleInfor.roleDesc"></el-input>
                     </el-form-item>
                 </el-form>
@@ -138,7 +139,16 @@ export default {
             addRoleInfor:{},
             addDialogVisible:false,
             deliverRolesDialogVisible:false,
-            modifyDialogVisible:false
+            modifyDialogVisible:false,
+            modifyRule:{
+                roleName:[
+                    { required: true, message: '不能为空', trigger: 'blur' },
+                ],
+                roleDesc:[
+                    { required: true, message: '不能为空', trigger: 'blur' },
+
+                ]
+            }
         }
     },
     methods:{
@@ -203,11 +213,16 @@ export default {
             this.modifyDialogVisible = true
         },
         async confirmModify(){
+            this.$refs.modifyRef.validate(async(valid) => {
+            if (!valid) {
+                return
+            } 
             const {data:res} = await this.$http.put('roles/' +this.roleInfor.roleId,this.roleInfor);
             if(res.meta.status !==200) return this.$message.error('修改信息失败');
             this.$message.success('修改信息成功');
             this.modifyDialogVisible = false;
             this.getrolesList();
+            })
         },
         resetModify(){
             this.$refs.modifyRef.resetFields();
