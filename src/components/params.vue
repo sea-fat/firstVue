@@ -13,7 +13,7 @@
                 show-icon>
             </el-alert>
             <!-- 级联选择器 -->
-            <el-form ref="cateFormRef" :model="cateForm" label-width="100px" class="choose">
+            <el-form ref="cateFormRef" label-width="100px" class="choose">
                 <el-form-item label="选择商品分类" >
                     <el-cascader
                         v-model="cateSeleteId"
@@ -158,7 +158,7 @@ export default {
     },
     data(){
         return {
-            cateForm:{},
+            /* 分类列表相关参数 */
             categoriesList:[],
             cateSeleteId:[],
             cateProps:{
@@ -167,6 +167,7 @@ export default {
                 label:'cat_name',
                 children:'children'
             },
+            /* tab栏参数 */
             activeName:'many',
             manyTableList:[],
             onlyTableList:[],
