@@ -58,7 +58,7 @@
                 <el-table-column
                     label="操作">
                     <template v-slot="scope">
-                        <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
+                        <el-button type="primary" icon="el-icon-edit" size="mini" @click="modify(scope.row.goods_id)"></el-button>
                         <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteProduct(scope.row.goods_id)"></el-button>
                     </template>
                 </el-table-column>
@@ -129,6 +129,10 @@ export default {
             }else if(str == 'cancel') {
                 return;
             }
+        },
+        /* 修改 */
+        modify(id){
+            this.$router.push({path:'/goods/modify',query:{id:id}})
         },
         /* 增加商品按钮 */
         addProduct(){

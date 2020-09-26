@@ -10,6 +10,7 @@ import Categories from '../components/categories.vue'
 import Params from '../components/params.vue'
 import Goods from '../components/goods.vue'
 import AddProduct from '../components/addProduct.vue'
+import ModifyGoods from '../components/modifyGoods.vue'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,9 @@ const routes = [{
     }, {
         path: '/goods/add',
         component: AddProduct
+    }, {
+        path: '/goods/modify',
+        component: ModifyGoods
     }]
 }]
 

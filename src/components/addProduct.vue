@@ -44,6 +44,7 @@
                         <el-form-item label="商品数量" prop="goods_number">
                             <el-input v-model="addForm.goods_number" type="number"></el-input>
                         </el-form-item>
+                        
                         <el-form-item label="商品分类" prop="goods_cat">
                             <el-cascader
                                 v-model="addForm.goods_cat"
